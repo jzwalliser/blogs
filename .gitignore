@@ -1,0 +1,18 @@
+# 忽略所有 run.sh
+run.sh
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 忽略所有 Tex 目录
+Tex/
+
+# 忽略 partial_movie_files 目录
+partial_movie_files/
+
+# 忽略 texts 目录
+texts/
+
+# 防止误忽略某些你想要的文件（可选）
+!.gitignore
