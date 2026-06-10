@@ -37,12 +37,26 @@ def analyze_markdown_char_by_char(text):
     in_math = False          # $ ... $
     in_display_math = False  # $$ ... $$
     in_link_or_image = False
+    in_kbd = False
 
     results = []
 
     while i < n:
         ch = text[i]
         prev_ch = text[i - 1] if i > 0 else ''
+        
+        if text[i:i+5] == '<kbd>':
+            in_code_block = True
+            for _ in range(5):
+                results.append(False)
+                i += 1
+            continue
+        if text[i:i+6] == '</kbd>':
+            in_code_block = False
+            for _ in range(6):
+                results.append(False)
+                i += 1
+            continue
 
         # 1. 代码块 
         if text[i:i+3] == '```':
