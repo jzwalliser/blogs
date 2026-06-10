@@ -135,7 +135,7 @@ def analyze_markdown_char_by_char(text):
         results.append(True)
         i += 1
 
-    return results
+    return results#
 
 if __name__ == "__main__":
     import tkinter
