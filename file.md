@@ -1,197 +1,167 @@
 @[TOC](目录)
 
 ---
+
 > 本文由Jzwalliser原创，发布在CSDN平台上，遵循[CC 4.0 BY-SA](https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans)协议。
 > 因此，若需转载/引用本文，请注明作者并附原文链接。
 > 违者必究，谢谢配合。
 > 个人主页：[blog.csdn.net/jzwalliser](https://blog.csdn.net/jzwalliser)
 
-# 引入
-tkinter 的窗口其实是有很多属性的。我们可以设置它的各大属性，如窗口大小，可调整大小，透明度等等等等等等，可好玩了呢。
-# 窗口的属性
-## 大小
-其实我在[上一期文章：Python tkinter（1）介绍&创建窗口](https://blog.csdn.net/jzwalliser/article/details/126909139#comments_23308539)里面已经提到了。叫作：`root.geometry("长x宽")`。其中，单位是“像素”。这里就复习一下吧。
+在python中，如果有一个代码片段需要频繁使用，则可以考虑将其写为一个自定义函数。
+# def 定义函数
+通过def关键词，可以自定义一个函数，之后再在代码内调用它。如：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.geometry("200x200") #创建一个200x200的窗口
-root.mainloop()
+def hello():
+    print("Hello World!")
+    print("Hello!")
+hello()
 ```
-## 位置
-窗口其实还可以设置它的位置。它和窗口大小用的是同一个语句，像这样：`root.geometry("长x宽+X坐标+Y坐标")`。
-我们来一段代码：
-```py
-import tkinter
-root = tkinter.Tk()
-root.geometry("200x200+50+50")
-#将窗口设置为200x200的大小，并将其放在屏幕上(50,50)的位置
-root.mainloop()
+运行结果：
 ```
-而坐标也应当是两个整数，否则会抛出错误。不过，和窗口大小不一样，坐标可以设置为负数。
-而负数坐标也是有讲究的。像`root.geometry("200x200+-50+50")`，窗口将会被摆放在左边（-50，50），而`root.geometry("200x200-50+50")`，窗口将会被摆放在右边，坐标为（你的屏幕宽度-50，50）。
-## 标题
-设置标题也不是一个技术活。千言万语概括成这么一句代码：`root.title("一个标题")`。
-```py
-import tkinter
-root = tkinter.Tk()
-root.title("Hi!") #将窗口的标题设置为"Hi"
-root.mainloop()
+Hello World!
+Hello!
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3c33e3ef5a3503cb8dcd82e49b9a8ad8.png#pic_center)
-效果怎么样啊？~~（就这???）~~
+第一行代表定义一个函数，函数名字叫`hello`；第2行到第3行代表该函数需要执行的东西，第4行代表执行该函数。
 
-## 图标
-其实我们还可以给窗口设置图标呢（标题栏左上角）。默认图标是一个蓝蓝的羽毛。图标有两种方式去设置：`iconbitmap()` 和 `iconphoto()`。
-这两者主要区别在于，iconbitmap只能加载ico格式的图片，而iconphoto可以加载png格式的图片。而用法也不一样：
+## 传入参数
+就像数学公式内，我们可能会这么写：$f(x)=x+1$。可以注意到，其实它有一个参数$x$。
+python内定义函数也可以有参数，像这样：
 ```py
-import tkinter
-root = tkinter.Tk()
-#第一种方法：
-root.iconbitmap(file="icon.ico") #这里icon.ico就是你的ico格式的图片
-#第二种方法：
-root.iconphoto(False,tkinter.PhotoImage(file='icon.png')) #这里icon.png就是你的的图片
+def sayhello(who):
+    print("Hello",who + "!")
+sayhello("Jzwalliser")
 ```
-发现了没？iconphoto其实有两个参数，第二个是图片，第一个是True或False，默认为False。如果设为True，那么图标也将应用于后面创建的所有顶级（Toplevel，后面我会讲到）窗口。
-## 透明度
-废话不多说，没啥好介绍的。直接上代码：`root.attributes("-alpha",透明度)`。透明度应该设置为浮点数，而不是整数，在这方面我经常搞错。如果你想设置30%的透明度，那么就是`root.attributes("-alpha",0.3)`。
-```py
-import tkinter
-root = tkinter.Tk()
-root.attributes("-alpha",0.3) #设置窗口的透明度为30%
-#root.attributes("-alpha",30) 这种写法不会报错，但是透明度会被设置为100%，即不透明
-root.mainloop()
+运行结果：
 ```
-## 最前面
-就是保持窗口最前。像这样：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/f1b1f3ac21a4b7e49c48149549e10a9c.png#pic_center)来看看这是怎么实现的：
-```py
-import tkinter
-root = tkinter.Tk()
-root.attributes("-topmost",True) #将窗口保持最前
-root.mainloop()
+Hello Jzwalliser!
 ```
-你也可以随时取消窗口的最前属性，只要调用`root.attributes("-topmost",False)`即可。
+对比一下，发现第一个例子中，在定义函数名时，后面的括号中没有任何内容（`def hello():`），而在第二个例子中，括号中有个“`who`”（`def sayhello(who):`）。其中，这里的“`who`”就是一个参数，可以理解为一个变量。再看最后一行（`sayhello("Jzwalliser")`），其实在这里就把`who`的值设置为了"Jzwalliser"，所以第二行在输出有关内容时，读取到的`who`的值即为"Jzwalliser"。
 
-## 禁用
-你有体验过被禁用的窗口吗？拖不动，也无法将其缩小、放大关闭等等。是不是很难受？
+## 返回值
+返回值，就是一个函数运行完后还给外界的数值。如：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.attributes("-disabled",True) #把窗口禁用掉
-root.mainloop()
+def plus(a,b):
+    print(a + b)
+def plus2(a,b):
+    return a + b
+result1 = plus(114000,514)
+result2 = plus2(114000,514)
+print("result1",result1)
+print("result2",result2)
 ```
-## 工具模式
-在工具模式下的窗口，将不会有最小化、最大化按钮，只有一个关闭按钮。
-```py
-import tkinter
-root = tkinter.Tk()
-root.attributes("-toolwindow",True) #工具窗口
-root.mainloop()
+运行结果：
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/0099b829dd2bdfb1f095014f2b6646d9.png#pic_center)
-好不好看啊？~~（有啥好看的）~~
-## 全屏
-设置全屏后，窗口将会撑满整个屏幕，任务栏也会被遮住。
-```py
-import tkinter
-root = tkinter.Tk()
-root.attributes("-fullscreen",True) #全屏
-root.mainloop()
+114514
+result1 None
+result2 114514
 ```
-## 最大化/最小化
-对于一个窗口来说，一般有三种状态：最大化、正常、最小化。
+同样是加法计算，`plus`函数只是直接输出结果，但`plus2`函数更为“高明”，它可以将计算结果保存到指定的变量中。
+这就是返回值，在函数最后面添加一行`return sth`就可以将数据返回给外界，就像是函数内部和外部的桥梁一样。
+不过注意，`return`后面的代码是不执行的，像这样：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.state("zoomed") #最大化
-root.state("normal") #正常
-root.state("icon") #最小化
-root.mainloop()
+def test():
+    print("return 之前")
+    return 114514
+    print("return 之后")
+test()
 ```
-## 隐藏/显示
-tkinter窗口可以消失且不出现在任务栏中，也可以恢复显示。
+运行结果：
+```
+return 之前
+```
+# lambda 定义函数
+`lambda`是一种很简洁（偷懒）的函数定义方法，它的代码量比`def`定义的函数少很多，但是正因如此它所能实现的功能也远没有`def`多。
+先看个例子，将$f(x)=2x$分别用`lambda`和`def`变成函数：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.withdraw() #隐藏窗口
+f = lambda x: 2 * x
+print(f(5))
+```
+```py
+def f(x):
+    return x * 2
+print(f(5))
+```
+以上两段代码其实是基本等价的，可以看出第一段代码量要少很多，甚至连个`return`都没有，但实际上它依然有个返回值。
+解释一下第一段代码什么意思：
+1. `f`为函数名
+2. `lambda`表示需要定义一个函数
+3. `x`是一个参数
+4. `2 * x`是一个表达式，同时也是这个函数的返回值
 
-#我们来搜搜词典：
-#withdraw	英[wɪðˈdrɔː] 美[wɪðˈdrɔː]
-#v.	撤退; (使)撤回，撤离; 停止提供; 不再给予; (使)退出; 提，取; 收回，撤回，撤销（说过的话）; 脱离（社会）;
-#[例句]Tell the men to withdraw from their new position.
-#告诉那些士兵从他们的新阵地上撤退。
-#[其他]	第三人称单数：withdraws 现在分词：withdrawing 过去式：withdrew 过去分词：withdrawn
 
-root.deiconify() #显示窗口
-root.mainloop()
-```
-## 脱离标题栏
-你可以设置窗口没有标题栏。但这样有一些缺点：没有标题栏的窗口需要手写窗口移动功能（如果你需要移动窗口的话），而且它不会出现在任务栏中。
+# 递归
+递归，就是一个函数自己调用自己。递归主要由两个部分组成：递归操作及递归边界。递归操作是函数的主体部分，负责执行运算、实现功能；递归边界即一个条件， 满足条件后停止递归，并返回上一层，以避免程序无限递归下去而陷入死循环。
+比如，计算斐波那契数列就可以使用递归算法来实现。假设第$x$项用$f(x)$来表示（$x\in\mathbb{Z_+}$），那么：
+
+$$ f(x)=\left\{
+\begin{aligned}
+&1\space(x=1) \\
+&1\ (x=2)\\
+&f(x-1)+f(x-2)\space(x\geq 3) \\
+\end{aligned}
+\right.
+$$
+
+
+翻译为python如下。
+
 ```py
-import tkinter
-root = tkinter.Tk()
-root.overrideredirect(True) #脱离标题栏
-root.overrideredirect(False) #找回标题栏
-root.mainloop()
+def f(x):
+    if x == 1 or x == 2:
+        return 1
+    else:
+        return f(x - 1) + f(x - 2)
 ```
-## 可调整大小
-窗口可以调整长度，也可以调整高度。不过你可以禁止这方面的调整。
+
+由于之前就写过一篇关于递归的文章，这里就不在赘述了，欲知详情，请移步到这里：[初识递归算法](https://blog.csdn.net/jzwalliser/article/details/137679984)。
+
+
+# 自测
+1. 阅读以下代码：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.resizable(True,False) #只允许调整长度
-root.resizable(False,True) #只允许调整高度
-root.resizable(False,False) #长度和高度都不允许调整，同时最大化按钮会被禁用
-root.mainloop()
+def f(x):
+    if x > 1:
+        return x * f(x - 1)
+    return 1
+print(f(10))
 ```
-## 窗口最大/最小可调整的大小
-前面讲了禁止调整窗口大小，但如果你不想做得这么绝，那么还有下面这个法宝：
+该程序输出为（      ）
+A. `362880`
+B. `3628800`
+C. `39916800`
+D. `10`
+【答案】B
+
+2. 阅读以下代码：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.maxsize(500,500) #窗口最大不能超过500×500像素
-root.minsize(100,100) #窗口最小不能小于100×100像素
-root.mainloop()
+def f(x):
+    if x == 0:
+        return 1
+    return f(x - 1) * 2
 ```
----
+这段代码表达的等价数学公式是（      ）
+A. $f(x) = 2^x(x\in\mathbb N)$
+B. $f(x) = 2x(x\in\mathbb N)$
+C. $f(x) = 2x-2(x\in\mathbb N)$
+D. $f(x) =2^{x-1}(x\in\mathbb N)$
+【答案】A
+
 
 # 总结
-上面就是tkinter窗口大部分的功能啦。一起来复习一下：
+**def 定义函数**
+使用`def`定义函数的模板：
 ```py
-import tkinter
-root = tkinter.Tk()
-root.geometry("300x300+50+50") #将窗口设置为300x300的大小，并将其放在屏幕上(50,50)的位置
-root.title("Hello!") #将窗口的标题设置为"Hello"
-root.iconbitmap(file="icon.ico") #这里icon.ico就是你的ico格式的图片
-root.iconphoto(False,tkinter.PhotoImage(file='icon.png')) #这里icon.png就是你的的图片
-
-root.attributes("-alpha",0.3) #设置窗口的透明度为30%
-root.attributes("-topmost",True) #将窗口保持最前
-root.attributes("-disabled",True) #把窗口禁用掉
-root.attributes("-toolwindow",True) #工具窗口
-root.attributes("-fullscreen",True) #全屏
-
-root.state("zoomed") #最大化
-root.state("normal") #正常
-root.state("icon") #最小化
-
-root.withdraw() #隐藏窗口
-root.deiconify() #显示窗口
-
-root.overrideredirect(True) #脱离标题栏
-root.overrideredirect(False) #找回标题栏
-
-root.resizable(True,False) #只允许调整长度
-root.resizable(False,True) #只允许调整高度
-root.resizable(False,False) #长度和高度都不允许调整，同时最大化按钮会被禁用
-
-root.maxsize(500,500) #窗口最大不能超过500×500像素
-root.minsize(100,100) #窗口最小不能小于100×100像素
-root.mainloop()
+def function(arg1,arg2,arg3): #定义函数
+   returnvalue = do_sth(arg1,arg2,arg3) #操作和运算
+   return returnvalue #返回值
 ```
-而大部分的函数，如果你不给参数，那么这个函数将会返回当前状态。
-
-我们下一期再见！
-记得一键三连哦！
-
+**lambda 定义函数**
+模板：
+```py
+func = lambda arg1,arg2,arg3: do_sth(arg1,arg2,arg3)
+```
+**递归**
+递归，即函数自己调用自己。层层深入进行计算，之后再回溯，将计算结果返回到上一层参与运算。
+# 结尾
+好啦，今天就分享到这里了，记得一键三连哦(˵¯͒〰¯͒˵)
 

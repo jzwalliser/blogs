@@ -43,7 +43,7 @@ class Area(Scene):
     def construct(self):
         jz = Tex("Jz",color=YELLOW)
         icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
-        title = Title("面积法") #面积法
+        title = Title("面积法")
         bigsquare = Rectangle(width=5,height=5).set_fill(opacity=0.4).set_color([BLUE,GREEN]).next_to(title,DOWN).shift(DOWN).shift(LEFT * 3)
         smallsquare = Rectangle(width=2.5,height=2.5).set_fill(opacity=0.4).set_color([YELLOW,RED]).move_to(bigsquare.get_center())
         brace1 = Brace(bigsquare,UP)
@@ -61,3 +61,21 @@ class Area(Scene):
         green = MathTex(r"S_{\text{绿}}=n^2-(n-2m)^2").next_to(red,DOWN,aligned_edge=LEFT)
         self.add(title,bigsquare,smallsquare.copy().set_fill(color=BLACK,opacity=1),smallsquare)
         self.add(brace1,brace2,n_text,minus_text,line1,m1,line2,m2,total,red,green,icon)
+        
+class Sections(Scene):
+    def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
+        title = Title("区域与偏移")
+        bigsquare = Rectangle(width=5,height=5).next_to(title,DOWN).shift(DOWN * 0.5)
+        smallsquare = Rectangle(width=3.5,height=3.5).set_fill(opacity=1).set_color(WHITE).move_to(bigsquare.get_center())
+        sec1 = Rectangle(width=5,height=0.75).move_to([0,(bigsquare.get_top()[1] + smallsquare.get_top()[1]) / 2,0]).set_fill(opacity=0.4).set_color([BLUE,GREEN])
+        sec2 = Rectangle(width=0.75,height=4.25).move_to([(bigsquare.get_right()[0] + smallsquare.get_right()[0]) / 2,(sec1.get_bottom()[1] + bigsquare.get_bottom()[1]) / 2,0]).set_fill(opacity=0.4).set_color([RED,ORANGE])
+        sec3 = Rectangle(width=4.25,height=0.75).move_to([(bigsquare.get_left()[0] + sec2.get_left()[0]) / 2,(bigsquare.get_bottom()[1] + smallsquare.get_bottom()[1]) / 2,0]).set_fill(opacity=0.4).set_color([PINK,PURPLE])
+        sec4 = Rectangle(width=0.75,height=3.5).move_to([(bigsquare.get_left()[0] + smallsquare.get_left()[0]) / 2,(sec1.get_bottom()[1] + sec3.get_top()[1]) / 2,0]).set_fill(opacity=0.4).set_color([YELLOW,GOLD])
+        sec1_text = Text("区域①").move_to(sec1.get_center()).scale(0.6)
+        sec2_text = Text("区\n域\n②").move_to(sec2.get_center()).scale(0.6)
+        sec3_text = Text("区域③").move_to(sec3.get_center()).scale(0.6)
+        sec4_text = Text("区\n域\n④").move_to(sec4.get_center()).scale(0.6)
+        self.add(title,icon,smallsquare,sec1,sec2,sec3,sec4,sec1_text,sec2_text,sec3_text,sec4_text)
+        

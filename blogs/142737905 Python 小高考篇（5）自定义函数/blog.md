@@ -55,7 +55,7 @@ print("result2",result2)
 result1 None
 result2 114514
 ```
-同样是加法计算，`plus`函数只是直接输出结果，但`plus2`函数更为（高明），它可以将计算结果保存到指定的变量中。
+同样是加法计算，`plus`函数只是直接输出结果，但`plus2`函数更为“高明”，它可以将计算结果保存到指定的变量中。
 这就是返回值，在函数最后面添加一行`return sth`就可以将数据返回给外界，就像是函数内部和外部的桥梁一样。
 不过注意，`return`后面的代码是不执行的，像这样：
 ```py
@@ -73,7 +73,7 @@ return 之前
 `lambda`是一种很简洁（偷懒）的函数定义方法，它的代码量比`def`定义的函数少很多，但是正因如此它所能实现的功能也远没有`def`多。
 先看个例子，将$f(x)=2x$分别用`lambda`和`def`变成函数：
 ```py
-f = lambda x:2 * x
+f = lambda x: 2 * x
 print(f(5))
 ```
 ```py
@@ -132,7 +132,7 @@ C. `39916800`
 D. `10`
 【答案】B
 
-2. 阅读一下代码：
+2. 阅读以下代码：
 ```py
 def f(x):
     if x == 0:
@@ -140,10 +140,10 @@ def f(x):
     return f(x - 1) * 2
 ```
 这段代码表达的等价数学公式是（      ）
-A. $f(x) = 2^x(x\in\mathbb Z)$
-B. $f(x) = 2x(x\in\mathbb Z)$
-C. $f(x) = 2x-2(x\in\mathbb Z)$
-D. $f(x) =2^{x-1}(x\in\mathbb Z)$
+A. $f(x) = 2^x(x\in\mathbb N)$
+B. $f(x) = 2x(x\in\mathbb N)$
+C. $f(x) = 2x-2(x\in\mathbb N)$
+D. $f(x) =2^{x-1}(x\in\mathbb N)$
 【答案】A
 
 
@@ -158,7 +158,7 @@ def function(arg1,arg2,arg3): #定义函数
 **lambda 定义函数**
 模板：
 ```py
-func = lambda arg1,arg2,arg3:do_sth(arg1,arg2,arg3)
+func = lambda arg1,arg2,arg3: do_sth(arg1,arg2,arg3)
 ```
 **递归**
 递归，即函数自己调用自己。层层深入进行计算，之后再回溯，将计算结果返回到上一层参与运算。
