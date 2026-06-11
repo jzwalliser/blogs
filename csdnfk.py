@@ -89,7 +89,7 @@ def analyze_markdown_char_by_char(text):
             continue
 
         # 3. 数学公式 
-        if text[i:i+2] == '':
+        if text[i:i+2] == '$$':
             in_display_math = not in_display_math
             results.append(False)
             results.append(False)
