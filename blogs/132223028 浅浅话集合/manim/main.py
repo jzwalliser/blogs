@@ -181,7 +181,7 @@ class Range(Scene):
         text8[0][5].color = BLUE
         text8[0][10].color = BLUE
         
-        table = MobjectTable([[text1[0][0:5],text1[0][5:],group1],[text2[0][0:5],text2[0][5:],group2],[text3[0][0:5],text3[0][5:],group3],[text4[0][0:5],text4[0][5:],group4],[text5[0][0:6],text5[0][6:],group5],[text6[0][0:6],text6[0][6:],group6],[text7[0][0:6],text7[0][6:],group7],[text8[0][0:6],text8[0][6:],group8]],v_buff=0.2,line_config={"stroke_width": 1, "color":GREY}).next_to(title,DOWN)
+        table = MobjectTable([[text1[0][0:5],text1[0][5:],group1],[text2[0][0:5],text2[0][5:],group2],[text3[0][0:5],text3[0][5:],group3],[text4[0][0:5],text4[0][5:],group4],[text5[0][0:6],text5[0][6:],group5],[text6[0][0:6],text6[0][6:],group6],[text7[0][0:6],text7[0][6:],group7],[text8[0][0:6],text8[0][6:],group8]],v_buff=0.2,line_config={"stroke_width":1,"color":GREY}).next_to(title,DOWN)
         table.remove(*table.get_vertical_lines())
         self.add(title,table,icon)
         
