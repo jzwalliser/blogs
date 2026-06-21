@@ -1,0 +1,7 @@
+由板载稳压器提供，可对外输出\n3.3V或5V电压供外部模块使用
+
+rect6 = SurroundingRectangle(rightpins[4],color=TEAL).set_fill(opacity=0.4)
+        label6 = Text("GND",color=TEAL,weight=BOLD).scale(0.4).next_to(rect6,LEFT * 14)
+        labels6 = Paragraph("电路的参考电位点，相当于电池\n的负极，是所有电压测量的基准\n上下两排均有GND引脚，共3个",color=TEAL,alignment="right").scale(0.3).next_to(label6,DOWN,aligned_edge=RIGHT,buff=0.05)
+        line6 = Line(rect6.get_left(),label6.get_right(),color=TEAL)
+        self.add(rect6,label6,labels6,line6)
