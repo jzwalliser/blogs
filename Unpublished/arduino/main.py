@@ -2093,3 +2093,79 @@ class ArduinoLabel2(Scene):
         line7 = Line(rect7.get_left(),label7.get_right(),color=RED)
         labels7 = Paragraph("可通过程序控制这个灯是否亮起",color=RED,alignment="right").scale(0.3).next_to(label7,DOWN,aligned_edge=RIGHT,buff=0.05)
         self.add(rect7,label7,labels7,line7)
+
+class PWM(Scene):
+    def construct(self):
+        def get_x(val):
+            return [0,0 + val * 2 / 255,0 + val * 2 / 255,2,2,2 + val * 2 / 255,2 + val * 2 / 255,4,4,4 + val * 2 / 255,4 + val * 2 / 255,6,6,6 + val * 2 / 255,6 + val * 2 / 255,8,8,8 + val * 2 / 255,8 + val * 2 / 255,10,10,10 + val * 2 / 255,10 + val * 2 / 255,12]
+
+        def get_y(val):
+            if val == 0:
+                return [0] * 24
+            if val == 255:
+                return [5] * 24
+            else:
+                return [5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0]
+        title = Title("PWM")
+        self.add(title)
+        tracker = ValueTracker(0)
+        
+        axes = Axes(x_range=[0,12.5],y_range=[0,6,5],x_length=8,y_length=4,x_axis_config={"include_numbers":False,"tip_shape":StealthTip,"include_ticks":False},y_axis_config={"numbers_to_include":[5],"tip_shape":StealthTip}).next_to(title,DOWN).shift(DOWN * 0.5).shift(LEFT * 2.6)
+        
+        
+        labels = axes.get_axis_labels(MathTex(r"t\rm/s"),MathTex(r"U\rm/V"))
+        value = always_redraw(lambda: MathTex(r"\text{值（}0\sim\text{255）：}" + str(int(tracker.get_value())) + "").next_to([2.4,2,0],DOWN,aligned_edge=LEFT))
+        ratio = always_redraw(lambda: MathTex(r"\text{占空比：}" + str(round(tracker.get_value() / 255 * 100,2)) + r"\%").next_to(value,DOWN,aligned_edge=LEFT))
+        voltage = always_redraw(lambda: MathTex(r"\text{“等效电压”：}" + str(round(tracker.get_value() / 255 * 5,2)) + r"\rm V").next_to(ratio,DOWN,aligned_edge=LEFT))
+
+        graph = always_redraw(lambda: axes.plot_line_graph(x_values=get_x(tracker.get_value()),y_values=get_y(tracker.get_value()),line_color=BLUE,add_vertex_dots=False,stroke_width=3))
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
+        self.add(icon,axes,graph,value,ratio,labels,voltage)
+        self.play(tracker.animate.set_value(255),run_time=3)
+        self.wait(0.5)
+        self.play(tracker.animate.set_value(0),run_time=3)
+        self.wait(0.5)
+
+class PWMExplained(Scene):
+    def construct(self):
+        def get_x(val):
+            return [0,0 + val * 2 / 255,0 + val * 2 / 255,2,2,2 + val * 2 / 255,2 + val * 2 / 255,4,4,4 + val * 2 / 255,4 + val * 2 / 255,6,6,6 + val * 2 / 255,6 + val * 2 / 255,8,8,8 + val * 2 / 255,8 + val * 2 / 255,10,10,10 + val * 2 / 255,10 + val * 2 / 255,12]
+
+        def get_y(val):
+            if val == 0:
+                return [0] * 24
+            if val == 255:
+                return [5] * 24
+            else:
+                return [5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0,5,5,0,0]
+        title = Title("PWM 脉冲")
+        self.add(title)
+        tracker = ValueTracker(100)
+        
+        axes = Axes(x_range=[0,12.5],y_range=[0,6,5],x_length=13,y_length=4.5,x_axis_config={"include_numbers":False,"tip_shape":StealthTip,"include_ticks":False},y_axis_config={"numbers_to_include":[5],"tip_shape":StealthTip}).next_to(title,DOWN).shift(DOWN * 0.5)
+        
+        
+        labels = axes.get_axis_labels(MathTex(r"t\rm/s"),MathTex(r"U\rm/V"))
+
+        graph = axes.plot_line_graph(x_values=get_x(tracker.get_value()),y_values=get_y(tracker.get_value()),line_color=BLUE,add_vertex_dots=False,stroke_width=3)
+        jz = Tex("Jz",color=YELLOW)
+        
+        online = Line(((axes @ [2,5,0])[0],(axes @ [2,5,0])[1],0),((axes @ [2 + tracker.get_value() * 2 / 255,5,0])[0],(axes @ [2 + tracker.get_value() * 2 / 255,5,0])[1],0),stroke_width=8,color=GREEN)
+        offline = Line(((axes @ [2 + tracker.get_value() * 2 / 255,0,0])[0],(axes @ [2 + tracker.get_value() * 2 / 255,0,0])[1],0),((axes @ [4,0,0])[0],(axes @ [4,0,0])[1],0),stroke_width=8,color=RED)
+        onbrace = Brace(online,UP,color=GREEN)
+        offbrace = Brace(offline,color=RED)
+        onlabel = Text("占：输出5V",color=GREEN).scale(0.5).next_to(onbrace,UP)
+        offlabel = Text("空：输出0V",color=RED).scale(0.5).next_to(offbrace,DOWN)
+        
+        period = VGroup(
+            Line(((axes @ [4,5,0])[0],(axes @ [4,5,0])[1],0),((axes @ [4 + tracker.get_value() * 2 / 255,5,0])[0],(axes @ [4 + tracker.get_value() * 2 / 255,5,0])[1],0),stroke_width=8,color=YELLOW),
+            Line(((axes @ [4 + tracker.get_value() * 2 / 255,0,0])[0],(axes @ [4 + tracker.get_value() * 2 / 255,0,0])[1],0),((axes @ [6,0,0])[0],(axes @ [6,0,0])[1],0),stroke_width=8,color=YELLOW),
+            Line(((axes @ [4 + tracker.get_value() * 2 / 255,5,0])[0],(axes @ [4 + tracker.get_value() * 2 / 255,5,0])[1],0),((axes @ [4 + tracker.get_value() * 2 / 255,0,0])[0],(axes @ [4 + tracker.get_value() * 2 / 255,0,0])[1],0),stroke_width=8,color=YELLOW),
+            Line(((axes @ [6,5,0])[0],(axes @ [6,5,0])[1],0),((axes @ [6,0,0])[0],(axes @ [6,0,0])[1],0),stroke_width=8,color=YELLOW)
+        )
+        periodbrace = Brace(period,UP,color=YELLOW)
+        periodlabel = Text("一整个周期",color=YELLOW).scale(0.5).next_to(periodbrace,UP)
+        
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
+        self.add(icon,axes,graph,labels,onbrace,offbrace,online,offline,onlabel,offlabel,period,periodbrace,periodlabel)
