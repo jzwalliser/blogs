@@ -6,12 +6,14 @@ config.frame_width = config.frame_height * (config.pixel_width / config.pixel_he
 
 class Cond1(Scene):
     def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
         title = Title("讨论一")
         matrix = VDict()
         for i in range(4):
             for j in range(3):
                 matrix[f"{i + 1},{j + 1}"] = Rectangle(width=1,height=1).move_to((i,-j,0))
-        self.add(title,matrix.next_to(title,DOWN).shift(DOWN))
+        self.add(title,icon,matrix.next_to(title,DOWN).shift(DOWN))
         self.add(Circle(radius=0.2).move_to(matrix["1,1"].get_corner(UL)))
         for i in range(4):
             for j in range(3):
@@ -25,12 +27,14 @@ class Cond1(Scene):
 
 class Cond2(Scene):
     def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
         title = Title("讨论二")
         matrix = VDict()
         for i in range(4):
             for j in range(3):
                 matrix[f"{i + 1},{j + 1}"] = Rectangle(width=1,height=1).move_to((i,-j,0))
-        self.add(title,matrix.next_to(title,DOWN).shift(DOWN))
+        self.add(title,icon,matrix.next_to(title,DOWN).shift(DOWN))
         self.add(Circle(radius=0.2).move_to(matrix["1,2"].get_corner(UL)))
         for i in range(4):
             for j in range(2):
@@ -44,12 +48,14 @@ class Cond2(Scene):
 
 class Cond3(Scene):
     def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
         title = Title("讨论三")
         matrix = VDict()
         for i in range(4):
             for j in range(3):
                 matrix[f"{i + 1},{j + 1}"] = Rectangle(width=1,height=1).move_to((i,-j,0))
-        self.add(title,matrix.next_to(title,DOWN).shift(DOWN))
+        self.add(title,icon,matrix.next_to(title,DOWN).shift(DOWN))
         self.add(Circle(radius=0.2).move_to(matrix["1,3"].get_corner(UL)))
         for i in range(4):
             for j in range(1):
@@ -63,12 +69,14 @@ class Cond3(Scene):
 
 class Cond4(Scene):
     def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
         title = Title("讨论四")
         matrix = VDict()
         for i in range(4):
             for j in range(3):
                 matrix[f"{i + 1},{j + 1}"] = Rectangle(width=1,height=1).move_to((i,-j,0))
-        self.add(title,matrix.next_to(title,DOWN).shift(DOWN))
+        self.add(title,icon,matrix.next_to(title,DOWN).shift(DOWN))
         self.add(Circle(radius=0.2).move_to(matrix["2,1"].get_corner(UL)))
         for i in range(3):
             for j in range(3):
@@ -82,12 +90,14 @@ class Cond4(Scene):
 
 class Cond5(Scene):
     def construct(self):
+        jz = Tex("Jz",color=YELLOW)
+        icon = LabeledDot(jz,color=RED).scale(3).scale(0.4).to_edge(DR,buff=0.2)
         title = Title("讨论五")
         matrix = VDict()
         for i in range(4):
             for j in range(3):
                 matrix[f"{i + 1},{j + 1}"] = Rectangle(width=1,height=1).move_to((i,-j,0))
-        self.add(title,matrix.next_to(title,DOWN).shift(DOWN))
+        self.add(title,icon,matrix.next_to(title,DOWN).shift(DOWN))
         self.add(Circle(radius=0.2).move_to(matrix["3,1"].get_corner(UL)))
         for i in range(2):
             for j in range(3):

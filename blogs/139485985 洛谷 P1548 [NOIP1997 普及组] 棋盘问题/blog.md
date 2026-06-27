@@ -70,20 +70,24 @@
 
 这道题，可以先数正方形和长方形一共有多少个，再单独数正方形有多少个，最后相减即可算出长方形个数。
 第一步：数正方形、长方形总数。我们以$3\times4$棋盘为例：
-先看左上角，即第一行第一个，它连接右下方任意格点即可形成一个正方形或长方形。一共$3\times4=12$个选择。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/1523c8fd014f88338cd246012725dbda.jpg)
+先看左上角，即第一行第一个点（图片中用圆圈标出），它连接右下方任意格点（用叉标出）即可形成一个正方形或长方形。一共$3\times4=12$个选择。
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/5b88821810d6458c9e8a8290a408f524.png)
+
 再处理第二个点，一共$2\times4=8$个选择。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/4227eb22c64084fc49914c76f51146b9.jpg)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/c74e0c91c6444a1196e96342887af5d2.png)
+
+
+
 第3个点，一共$1\times4=4$个选择。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5cd2a66c3fed401bd6efdf1080f2b4a1.jpg)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/8fed9a0991ae4ac49982cbf156fec9dc.png)
 对于第一行第四个点来说，有$0\times4=0$个选择。
 到了第二行第一个点，共$3\times3=9$个选择。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3f98654521508339dec142e244c8d06b.jpg)
-第二个点，$2\times3=6$个选择。
-![](https://i-blog.csdnimg.cn/blog_migrate/2e013376e40a5ecc51ece148d74c5b39.jpg)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/7f9a189040f64a4983226fca11b8c3f9.png)
+
+第二个点，$3\times2=6$个选择。
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/ff821dcdb96c4a52a5076b3aa1be683e.png)
+
 后面就不一一列举了。
-
-
 
 
 所以，有$3\times4+2\times4+1\times4+3\times3+2\times3+1\times3+3\times2+2\times2+1\times2+3\times1+2\times1+1\times1=60$个正方形和长方形。
