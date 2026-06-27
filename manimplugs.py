@@ -29,7 +29,8 @@ class MixGroup:
 
         # 1. 等比缩放矢量描边
         for mob in self.get_family():
-            if not isinstance(mob,(Text,Tex,MathTex)):
+            if not (isinstance(mob,SVGMobject) or isinstance(mob,VDict) or isinstance(mob,VGroup)):
+                print(mob)
                 w = mob.get_stroke_width()
                 if w > 0:
                     #mob.set_stroke(width=w * factor)

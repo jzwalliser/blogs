@@ -576,6 +576,10 @@ class Circuit(Scene):
         
         #self.play(board.animate.scale(0.3,scale_stroke=True))
         self.play(board.animate.proportional_scale(0.3))
+        #breadboard.proportional_scale(0.6)
+        #board.shift(LEFT)
+        #breadboard.shift(RIGHT)
+        #self.add(board,breadboard)
         
         
         
